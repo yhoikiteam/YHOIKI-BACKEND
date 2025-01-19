@@ -29,7 +29,13 @@ class RegisterController extends Controller
             $roleName = $user->roles->first()->name;
             return response()->json([
                 'message' => 'User registered successfully',
-                'user' => $user,
+                'user' => [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'updated_at' => $user->updated_at,
+                    'created_at' => $user->created_at,
+                    'id' => $user->id,
+                ],
                 'role' => $roleName,
             ], 201);
         } catch (ValidationException $e) {

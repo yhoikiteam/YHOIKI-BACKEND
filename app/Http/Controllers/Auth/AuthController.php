@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
@@ -16,9 +15,9 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        $data = $request->validate([
-            'username' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'string','min:8'],
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -38,8 +37,9 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function logout(User $user)
+    public function logout(Request $request,User $user)
     {
-        //
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logout successful']);
     }
 }
