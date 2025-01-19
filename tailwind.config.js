@@ -13,8 +13,14 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ["Figtree", ...defaultTheme.fontFamily.sans],
+                sans: ['Inter', 'sans-serif']
             },
+            colors: {
+                color1: "#75C57E",
+                color2: "#34A853",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+            }
         },
     },
     plugins: [],
