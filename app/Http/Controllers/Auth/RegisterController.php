@@ -25,9 +25,12 @@ class RegisterController extends Controller
                 'password' => bcrypt($validatedData['password']),
             ]);
 
+            $user->assignRole('user');
+            $roleName = $user->roles->first()->name;
             return response()->json([
                 'message' => 'User registered successfully',
                 'user' => $user,
+                'role' => $roleName,
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([
