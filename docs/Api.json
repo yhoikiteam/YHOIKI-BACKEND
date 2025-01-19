@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "API Yhoiki BE",
+        "title": "API Yhoiki BE auth",
         "version": "1.0"
     },
     "servers": [
