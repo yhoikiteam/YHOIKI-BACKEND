@@ -9,6 +9,7 @@ import { IoSettingsSharp } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { RiTeamFill } from "react-icons/ri";
 import Logo from "@/Images/Yhoiki Rev copy.png";
+import User from "@/Components/Dashboard/User";
 
 const DashboardAdmin = () => {
     const BgColor2: string = 'hover:bg-color2 hover:text-white rounded-md duration-300 shadow-xl'
@@ -43,6 +44,7 @@ const DashboardAdmin = () => {
                     </div>
                 </div>
                 <div id="perubahansection" className=" w-full h-full">
+                    {SubOn === "user" && <User/>}
                     {SubOn === "setting" && <Setting/>}
                 </div>
             </div>
