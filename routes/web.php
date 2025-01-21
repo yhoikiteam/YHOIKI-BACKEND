@@ -7,8 +7,7 @@ use PhpParser\Node\Stmt\Return_;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\UsersDataControllers;
 
-Route::get('/', [HomeController::class,'index']);
-Route::get('/login', function() {
+Route::get('/', function() {
     return Inertia::render ('Login');
 });
 Route::get('/dashboard', function() {

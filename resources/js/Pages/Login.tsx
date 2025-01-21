@@ -1,38 +1,43 @@
-import { useForm } from "@inertiajs/react";
-import { useState } from "react";
+import { loginUser } from "@/Hooks/auth";
+import { useState, FormEvent } from "react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
-interface Errors {
-  email?: string;
-  password?: string;
-}
-
 const Login = () => {
-  const { data, setData, post, errors, processing } = useForm<{
-    email: string;
-    password: string;
-  }>({
-    email: "",
-    password: "",
-  });
+  const [ email, setEmail ] = useState<string>("");
+  const [ password, setPassword ] = useState<string>("");
+  const [ error, setError ] = useState<string>("");
+  const [ loading, setLoading ] = useState<boolean>(false);
+  const handleSubmit = async(e: FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    if( !email && !password ) {
+      setError("Email Dan Password Harus Di Isi!");
+      return;
+    }
+    else if(!email) {
+      setError("Email Harus Di isi!");
+      return;
+    }
+    else if(!password) {
+      setError("Password Harus Di isi!");
+      return;
+    }
+
+    try {
+      const data = await loginUser({email, password});
+      setError(data);
+    } catch(error: any) {
+      setError("Kesalahan Tidak Terduga")
+    } finally {
+      setLoading(false);
+    }
+  }
 
   const [passwordVisible, setPasswordVisible] = useState<boolean>(false);
-
   const togglePasswordVisibility = () => {
     setPasswordVisible((prev) => !prev);
-  };
-
-  const handleSubmit = (event: React.FormEvent) => {
-    event.preventDefault();
-
-    post("/api/login", {
-      onSuccess: () => {
-        window.location.href="/dashboard";
-      },
-      onError: (error: Errors) => {
-        
-      },
-    });
   };
 
   return (
@@ -56,11 +61,11 @@ const Login = () => {
         <div className="w-1/2 h-full overflow-hidden flex justify-center items-center">
           <a href="/" id="logo" className="flex space-x-3 items-center absolute p-5">
             <img
-              className="w-7"
+              className="w-12"
               src="https://i.ibb.co.com/0DhSzYN/Yhoiki.png"
               alt="logo"
             />
-            <h1 className="text-gray-700 font-bold text-xl">Yhoiki</h1>
+            <h1 className="text-gray-700 font-bold text-4xl">Yhoiki</h1>
           </a>
         </div>
 
@@ -72,14 +77,11 @@ const Login = () => {
           <input
             type="email"
             name="email"
-            value={data.email}
-            onChange={(e) => setData("email", e.target.value)}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             className="bg-gray-200 rounded-full px-6 py-2 border border-gray-300 hover:bg-gray-300 outline-color1 duration-300 w-full"
           />
-          {errors.email && (
-            <p className="text-red-500 text-xs">{errors.email}</p>
-          )}
 
           {/* Input Password */}
           <div className="w-full relative">
@@ -87,8 +89,8 @@ const Login = () => {
               type={passwordVisible ? "text" : "password"}
               placeholder="Password"
               name="password"
-              value={data.password}
-              onChange={(e) => setData("password", e.target.value)}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="bg-gray-200 rounded-full px-6 py-2 border border-gray-300 hover:bg-gray-300 outline-color1 duration-300 w-full"
             />
             <button
@@ -103,25 +105,16 @@ const Login = () => {
               )}
             </button>
           </div>
-          {errors.password && (
-            <p className="text-red-500 text-xs">{errors.password}</p>
+          {error && (
+            <p className="text-red-500 text-xs">{error}</p>
           )}
-
-          <div className="w-full flex justify-between px-2">
-            <button className="cursor-pointer text-color1 text-sm px-2 hover:text-color2 duration-300">
-              Forgot Password?
-            </button>
-            <button className="cursor-pointer text-color1 text-sm px-2 hover:text-color2 duration-300">
-              Register
-            </button>
-          </div>
 
           <button
             type="submit"
-            disabled={processing}
+            disabled={loading}
             className="bg-gradient-to-r from-color1 to-color2 text-white w-full rounded-full p-2 hover:from-color2 hover:to-color2 duration-300"
           >
-            {processing ? "Logging in..." : "Login"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </div>
       </form>
