@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -9,10 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function login(Request $request)
     {
         $request->validate([
@@ -37,7 +33,7 @@ class AuthController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function logout(Request $request,User $user)
+    public function logout(Request $request, User $user)
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json(['message' => 'Logout successful']);

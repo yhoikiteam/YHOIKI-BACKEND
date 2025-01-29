@@ -1,10 +1,10 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-    baseURL: '/api',
+    baseURL: "http://127.0.0.1:8000/spa",
     headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
+        "Content-Type": "application/json",
+        Accept: "application/json",
     },
     withCredentials: true,
     withXSRFToken: true,
