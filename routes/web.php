@@ -15,9 +15,9 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::middleware('auth', 'role:user')->group(function () {
-    Route::get('/dashboard/user', [DashboardController::class, 'user'])->name('dashboard.user');
+Route::middleware('auth'/* , 'role:user' */)->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard');
 });
-Route::middleware('auth', 'role:admin')->group(function () {
-    Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
-});
+// Route::middleware('auth', 'role:admin')->group(function () {
+//     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+// });
