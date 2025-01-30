@@ -16,7 +16,7 @@ class AuthController extends Controller
         ]);
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-        return response()->json([
+            return response()->json([
             'message' => 'Login successful',
             'status' => 'success',
         ]);
