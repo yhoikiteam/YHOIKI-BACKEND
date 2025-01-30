@@ -9,17 +9,28 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
+
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
+            $roleName = $user->roles->first()->name;
+            // dd($roleName);
             return response()->json([
-            'message' => 'Login successful',
-            'status' => 'success',
-        ]);
+                'message' => 'Login successful',
+                'status' => 'success',
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'role' => $roleName,
+                ]
+            ]);
         }
         return response()->json([
             'message' => 'Login failed',

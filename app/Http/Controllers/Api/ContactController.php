@@ -108,6 +108,18 @@ class ContactController extends Controller
             "data" => $deletedContact
         ], 201);
     }
+    /**
+     * Restore a soft-deleted contact.
+     *
+     * This function attempts to restore a contact that was previously soft-deleted.
+     * It searches for the contact using the provided ID, including trashed records.
+     *
+     * @param int $id The ID of the contact to restore.
+     *
+     * @return \Illuminate\Http\JsonResponse A JSON response indicating the result of the operation.
+     *         If successful, returns a 201 status code with a success message and the restored contact data.
+     *         If the contact is not found, returns a 404 status code with an error message.
+     */
     public function restore($id)
     {
         $contact = Contact::withTrashed()->where('id', $id)->first();

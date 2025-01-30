@@ -4,7 +4,8 @@ export const loginUser = async(data: {email: string; password: string}) => {
     try {
         const response = await apiClient.post('/login', data);
         if( response.data.status === 'success') {
-            window.location.href="/dashboard";
+            window.location.href = "/dashboard";
+            console.log(response.data);
             return (response.data);
         }
         return (response.data);
