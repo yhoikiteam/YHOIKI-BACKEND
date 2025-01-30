@@ -20,7 +20,6 @@ class AuthController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             $roleName = $user->roles->first()->name;
-            // dd($roleName);
             return response()->json([
                 'message' => 'Login successful',
                 'status' => 'success',

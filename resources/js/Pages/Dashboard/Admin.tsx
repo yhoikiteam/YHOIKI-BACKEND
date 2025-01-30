@@ -11,16 +11,25 @@ import { RiTeamFill } from "react-icons/ri";
 import Logo from "@/Images/Yhoiki Rev copy.png";
 import User from "@/Components/Dashboard/User";
 
-const DashboardAdmin = () => {
+interface props{
+    name: string;
+    role: string;
+}
+const DashboardAdmin: React.FC<props> = (props) => {
+    const { name, role } = props;
+
     const BgColor2: string = 'hover:bg-color2 hover:text-white rounded-md duration-300 shadow-xl'
+
     const [SubOn, setSubOn] = useState<string>("home");
     const gantiSubOn = (e: string) => {
         setSubOn(e);
     }
+
     const [ChevronLogout, ChevronLogoutSaatIni] = useState<boolean>(false);
     const BukaChevronLogout = () => {
         ChevronLogoutSaatIni((buka) => !buka);
     }
+
     return(
         <div className="bg-gray-200 w-full h-screen max-h-screen text-white flex p-5">
             <div className="bg-gradient-to-b from-color1 to-color2 w-20 h-full rounded-3xl flex flex-col items-center justify-between py-6 border border-color1 text-2xl">
@@ -36,10 +45,10 @@ const DashboardAdmin = () => {
             <div className="w-full h-full ml-5 flex flex-col space-y-5">
                 <div className="bg-white w-full h-20 rounded-2xl flex items-center justify-between text-gray-500 p-4">
                     <Search/>
-                    <div id="roles"><p className="bg-color1 p-2 text-white rounded-xl">Admin</p></div>
+                    <div id="roles"><p className="bg-color1 p-2 text-white rounded-xl">{role}</p></div>
                     <div id="profil" className="flex items-center">
                         <div id="buttonout" className="text-3xl cursor-pointer" onClick={BukaChevronLogout}>{ChevronLogout ? <BiChevronUp/> : <BiChevronDown/>}{ChevronLogout === true && <div className="absolute top-28"><Logout/></div>}</div>
-                        <div id="nameadmin"><p>username</p></div>
+                        <div id="nameadmin"><p>{name}</p></div>
                         <div id="profil" className="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center text-2xl ml-4"><FaUser/></div>
                     </div>
                 </div>

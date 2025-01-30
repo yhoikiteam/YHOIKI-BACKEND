@@ -47,7 +47,7 @@ const Login = () => {
     <div className="w-full h-screen bg-white backdrop-blur-sm flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-3/5 h-96 rounded-3xl border border-gray-300 flex shadow-xl relative"
+        className="bg-white w-3/6 h-96 rounded-3xl border border-gray-300 flex shadow-xl relative"
       >
         <div className="text-4xl">
           <button

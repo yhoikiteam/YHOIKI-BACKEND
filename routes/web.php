@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\SPA\AuthController;
-use App\Http\Controllers\Auth\SPA\Dashboard\AdminController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +15,9 @@ Route::middleware('guest')->group(function () {
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
+Route::middleware('auth', 'role:user')->group(function () {
+    Route::get('/dashboard/user', [DashboardController::class, 'user'])->name('dashboard.user');
+});
 Route::middleware('auth', 'role:admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/userdata', [UsersDataControllers::class, 'index']);
+    Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
 });
