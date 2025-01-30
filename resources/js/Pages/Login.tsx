@@ -14,14 +14,17 @@ const Login = () => {
 
     if( !email && !password ) {
       setError("Email Dan Password Harus Di Isi!");
+      setLoading(false);
       return;
     }
     else if(!email) {
       setError("Email Harus Di isi!");
+      setLoading(false);
       return;
     }
     else if(!password) {
       setError("Password Harus Di isi!");
+      setLoading(false);
       return;
     }
 
@@ -46,7 +49,6 @@ const Login = () => {
         onSubmit={handleSubmit}
         className="bg-white w-3/5 h-96 rounded-3xl border border-gray-300 flex shadow-xl relative"
       >
-        {/* Logo X di pojok kanan atas */}
         <div className="text-4xl">
           <button
             type="button"
@@ -57,7 +59,6 @@ const Login = () => {
           </button>
         </div>
 
-        {/* Bagian Gambar */}
         <div className="w-1/2 h-full overflow-hidden flex justify-center items-center">
           <a href="/" id="logo" className="flex space-x-3 items-center absolute p-5">
             <img
@@ -69,11 +70,9 @@ const Login = () => {
           </a>
         </div>
 
-        {/* Form Login */}
         <div className="w-1/2 flex flex-col space-y-4 p-8 justify-center items-center text-gray-600">
           <h1 className="text-2xl font-bold text-gray-600">Login</h1>
 
-          {/* Input Email */}
           <input
             type="email"
             name="email"
@@ -83,7 +82,6 @@ const Login = () => {
             className="bg-gray-200 rounded-full px-6 py-2 border border-gray-300 hover:bg-gray-300 outline-color1 duration-300 w-full"
           />
 
-          {/* Input Password */}
           <div className="w-full relative">
             <input
               type={passwordVisible ? "text" : "password"}
