@@ -14,10 +14,19 @@ class UserController extends Controller
         $data = [];
 
         foreach ($roles as $role) {
-            $users = User::role($role)->get(); // Mengambil user berdasarkan role
-            $data[$role] = $users; // Menyimpan hasilnya dalam array
-            // dd($data);
+            $users = User::role($role)->get();   
+            $data[$role] = $users;   
         }
-        dd($data);
+        if ($data) {
+            return response()->json([
+                'massage' => 'data berhasil di temukan',
+                'data' => $data,
+                'roles' => $roles,
+            ]);
+        }else{
+            return response()->json([
+               'message' => 'data gagal di temukan',
+            ]);
+        }
     }
 }
