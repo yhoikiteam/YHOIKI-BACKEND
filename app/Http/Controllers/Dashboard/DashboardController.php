@@ -18,7 +18,7 @@ class DashboardController extends Controller
                 'name' => $user->name,
                 'role' => $roleName,
             ]);
-        }elseif ($roleName = 'user') {
+        }elseif($roleName = 'user') {
             return Inertia::render('Dashboard/User', [
                 'name' => $user->name,
                 'role' => $roleName,
