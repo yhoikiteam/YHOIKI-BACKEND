@@ -29,7 +29,7 @@ const User = () => {
     useEffect(() => {
         const AmbilUserDariDB = async() => {
             try {
-                const response = await fetch("/userdata");
+                const response = await fetch("/users");
                 const result: user[] = await response.json();
                 userDataSaatini(result);
             } catch (error) {

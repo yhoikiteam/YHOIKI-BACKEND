@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SPA\AuthController;
+use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
