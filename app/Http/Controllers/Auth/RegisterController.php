@@ -13,6 +13,11 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
+    // private function generateToken()
+    // {
+    //     $token = Str::random(32);
+    //     return $token;
+    // }
     public function register(Request $request)
     {
         try {
@@ -51,9 +56,5 @@ class RegisterController extends Controller
         }
     }
 
-    // private function generateToken()
-    // {
-    //     $token = Str::random(32);
-    //     return $token;
-    // }
+    
 }

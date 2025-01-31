@@ -5,7 +5,6 @@ use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 Route::middleware('guest')->group(function () {
     Route::get('/', [HomeController::class,'login'])->name('login');
@@ -20,6 +19,8 @@ Route::middleware('auth')->group(function (){
 
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+    Route::get('/users', [UserController::class, 'index']);
+
 });
 
 Route::middleware('auth', 'role:yhoiki')->group(function () {
