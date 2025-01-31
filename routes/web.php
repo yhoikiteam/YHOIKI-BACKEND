@@ -5,19 +5,23 @@ use App\Http\Controllers\Dashboard\Admin\UserController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [HomeController::class,'index'])->name('login');
+    Route::get('/', [HomeController::class,'login'])->name('login');
     Route::post('/login', [AuthController::class, 'login']);
 });
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
-Route::middleware('auth', 'role:user')->group(function () {
-    Route::get('/dashboard/user', [DashboardController::class, 'user'])->name('dashboard.user');
+Route::middleware('auth')->group(function (){
+    Route::get('/home', [HomeController::class,'home'])->name('home');
 });
 
 Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('/dashboard/admin', [DashboardController::class, 'admin'])->name('dashboard.admin');
+});
+
+Route::middleware('auth', 'role:yhoiki')->group(function () {
+    Route::get('/dashboard/yhoiki', [DashboardController::class, 'yhoiki'])->name('dashboard.yhoiki');
 });

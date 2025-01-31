@@ -12,11 +12,14 @@ import Logo from "@/Images/Yhoiki Rev copy.png";
 import User from "@/Components/Dashboard/User";
 
 interface props{
-    name: string;
-    role: string;
+    data: {
+        name: string;
+        role: string;
+    }
 }
+
 const DashboardAdmin: React.FC<props> = (props) => {
-    const { name, role } = props;
+    const { data } = props;
 
     const BgColor2: string = 'hover:bg-color2 hover:text-white rounded-md duration-300 shadow-xl'
 
@@ -45,10 +48,10 @@ const DashboardAdmin: React.FC<props> = (props) => {
             <div className="w-full h-full ml-5 flex flex-col space-y-5">
                 <div className="bg-white w-full h-20 rounded-2xl flex items-center justify-between text-gray-500 p-4">
                     <Search/>
-                    <div id="roles"><p className="bg-color1 p-2 text-white rounded-xl">{role}</p></div>
+                    <div id="roles"><p className="bg-color1 p-2 text-white rounded-xl">{data.role}</p></div>
                     <div id="profil" className="flex items-center">
                         <div id="buttonout" className="text-3xl cursor-pointer" onClick={BukaChevronLogout}>{ChevronLogout ? <BiChevronUp/> : <BiChevronDown/>}{ChevronLogout === true && <div className="absolute top-28"><Logout/></div>}</div>
-                        <div id="nameadmin"><p>{name}</p></div>
+                        <div id="nameadmin"><p>{data.name}</p></div>
                         <div id="profil" className="w-14 h-14 bg-gray-200 rounded-full flex items-center justify-center text-2xl ml-4"><FaUser/></div>
                     </div>
                 </div>
