@@ -48,7 +48,10 @@ const DashboardYhoiki: React.FC<props> = (props) => {
             <div className="w-full h-full ml-5 flex flex-col space-y-5">
                 <div className="bg-white w-full h-20 rounded-2xl flex items-center justify-between text-gray-500 p-4">
                     <Search/>
-                    <div id="roles"><p className="bg-color1 p-2 text-white rounded-xl">{data.role}</p></div>
+                    <div id="roles" className="flex space-x-3">
+                        <p className="bg-gray-300 p-2 text-white rounded-xl font-semibold">Role :</p>
+                        <p className="bg-color1 p-2 text-white rounded-xl">{data.role}</p>
+                    </div>
                     <div id="profil" className="flex items-center">
                         <div id="buttonout" className="text-3xl cursor-pointer" onClick={BukaChevronLogout}>{ChevronLogout ? <BiChevronUp/> : <BiChevronDown/>}{ChevronLogout === true && <div className="absolute top-28"><Logout/></div>}</div>
                         <div id="nameadmin"><p>{data.name}</p></div>
