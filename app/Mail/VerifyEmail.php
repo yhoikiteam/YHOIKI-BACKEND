@@ -27,5 +27,7 @@ class VerifyEmail extends Mailable
         return $this->view('emails.verify')
         ->subject('Verify Your Email')
         ->with(['token' => $this->token]);
+
+        // return $this->Inertia::render('Components/Email/VerifyRegister')->subject('Verify Your Email')->with(['token' => $this->token]);
     }
 }

@@ -20,7 +20,9 @@ class DashboardController extends Controller
     }
     public function user()
     {
-        return Inertia::render('Dashboard/User');
+        return Inertia::render('Dashboard/User',[
+            'data' => $this->userData,
+        ]);
     }
 
     public function yhoiki()

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Token;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -13,11 +14,11 @@ use Illuminate\Validation\ValidationException;
 
 class RegisterController extends Controller
 {
-    // private function generateToken()
-    // {
-    //     $token = Str::random(32);
-    //     return $token;
-    // }
+    private function generateToken()
+    {
+        $token = substr(str_shuffle('0123456789'), 0, 6);
+        return $token;
+    }
     public function register(Request $request)
     {
         try {
@@ -31,9 +32,14 @@ class RegisterController extends Controller
                 'email' => $validatedData['email'],
                 'password' => bcrypt($validatedData['password']),
             ]);
-            // $token = $this->generateToken();
+            $token = $this->generateToken();
             // dd($token);
-            // Mail::to($user->email)->send(new \App\Mail\VerifyEmail($token));
+            $tbToken = Token::create([
+                'user_id' => $user->id,
+                'token' => $token,
+            ]);
+            // kirim email verifikasi ke user
+            Mail::to($user->email)->send(new \App\Mail\VerifyEmail($token));
 
             $user->assignRole('user');
             $roleName = $user->roles->first()->name;
@@ -55,6 +61,4 @@ class RegisterController extends Controller
             ]);
         }
     }
-
-    
 }
