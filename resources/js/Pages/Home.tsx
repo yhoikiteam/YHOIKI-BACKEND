@@ -5,7 +5,6 @@ interface role {
 }
 
 const Home: React.FC<role> = (props) => {
-    console.log(props.role);
     const role = props.role;
     const { post } = useForm();
     const untukLogout = () => {
