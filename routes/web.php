@@ -25,7 +25,3 @@ Route::middleware('auth', 'role:admin')->group(function () {
 Route::middleware('auth', 'role:yhoiki', 'role:admin')->group(function () {
     Route::get('/dashboard/yhoiki', [DashboardController::class, 'yhoiki'])->name('dashboard.yhoiki');
 });
-
-Route::get('/tesverif', function() {
-    return Inertia::render('VerifyRegister');
-});
