@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth\SPA;
 
 use App\Http\Controllers\Controller;
+use App\Models\Token;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,19 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            $roleName = $user->roles->first()->name;
+
+            // Cek apakah email sudah diverifikasi
+            if (is_null($user->email_verified_at)) {
+                return response()->json([
+                    'message' => 'Email not verified',
+                    'status' => 'error',
+                ], 403);
+            }
+
+            // Ambil role user, cek jika role ada
+            $role = $user->roles->first();
+            $roleName = $role ? $role->name : 'No Role';
+
             return response()->json([
                 'message' => 'Login successful',
                 'status' => 'success',
@@ -30,13 +43,15 @@ class AuthController extends Controller
                     'email' => $user->email,
                     'role' => $roleName,
                 ]
-            ]);
+            ], 200);
         }
+
         return response()->json([
             'message' => 'Login failed',
             'status' => 'error',
-        ]);
+        ], 401);
     }
+
     public function logout(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
