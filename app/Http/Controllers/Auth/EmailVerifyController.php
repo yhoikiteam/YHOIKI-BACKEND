@@ -28,6 +28,9 @@ class EmailVerifyController extends Controller
 
         $user->email_verified_at = now();
         $user->save();
+        // $user->update([
+        //     'email_verified_at' => now(),
+        // ]);
 
         return response()->json(['message' => 'Email verified successfully.'], 200);
     }
