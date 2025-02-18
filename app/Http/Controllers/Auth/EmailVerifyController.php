@@ -12,6 +12,9 @@ use Illuminate\Support\Facades\Auth;
 
 class EmailVerifyController extends Controller
 {
+    public function index(){
+        return view('verify');
+    }
     public function store(Request $request)
     {
         $request->validate(['token' => 'required']);

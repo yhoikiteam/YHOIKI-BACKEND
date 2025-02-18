@@ -11,6 +11,25 @@ use Inertia\Inertia;
 
 class AuthController extends Controller
 {
+    public function loginView(){
+        return view('login');
+    }
+    public function dashboard(){
+        $user = Auth::user();
+        $role = $user->roles->first();
+        $roleName = $role ? $role->name : 'No Role';
+
+        // dd($user);
+        return view('admin.dashbaord',[
+            'user' => [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'role' => $roleName,
+            ]
+        ]);
+    }
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -20,37 +39,10 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            $user = Auth::user();
-
-            // Cek apakah email sudah diverifikasi
-            if (is_null($user->email_verified_at)) {
-                return response()->json([
-                    'message' => 'Email not verified',
-                    'status' => 'error',
-                ], 403);
-            }
-
-            // Ambil role user, cek jika role ada
-            $role = $user->roles->first();
-            $roleName = $role ? $role->name : 'No Role';
-
-            return response()->json([
-                'message' => 'Login successful',
-                'status' => 'success',
-                'user' => [
-                    'id' => $user->id,
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'email_verified_at' => $user->email_verified_at,
-                    'role' => $roleName,
-                ]
-            ], 200);
+            return redirect('/test/dashbaord');
         }
 
-        return response()->json([
-            'message' => 'Login failed',
-            'status' => 'error',
-        ], 401);
+        return redirect()->back()->with('message', 'Login failed');
     }
 
     public function logout(Request $request): RedirectResponse
