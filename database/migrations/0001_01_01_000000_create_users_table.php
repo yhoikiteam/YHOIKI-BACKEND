@@ -16,6 +16,10 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->boolean('fa2_enabled')->default(false);
+            $table->string('fa2_code')->nullable();
+            $table->timestamp('fa2_expires_at')->nullable();
+            $table->timestamp('last_login_time')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->softDeletes();

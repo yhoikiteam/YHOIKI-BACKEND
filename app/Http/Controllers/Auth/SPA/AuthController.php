@@ -39,7 +39,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/test/dashbaord');
+            return redirect()->route('dashboard.view');
         }
 
         return redirect()->back()->with('message', 'Login failed');

@@ -6,7 +6,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test/dashbaord', [AuthController::class, 'dashboard'])->middleware(['verified', 'auth'])->name('dashbaord');
+Route::get('/test/dashbaord', [AuthController::class, 'dashboard'])->middleware(['verified', 'auth'])->name('dashboard.view');
 
 // Route::middleware('auth')->group(function (){
 //     Route::get('/home', [HomeController::class,'home'])->name('home');

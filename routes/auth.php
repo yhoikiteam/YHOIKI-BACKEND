@@ -1,7 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\EmailVerifyController;
 use App\Http\Controllers\Auth\SPA\AuthController;
+use App\Http\Controllers\Auth\SPA\EmailVerifyController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -13,7 +13,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [AuthController::class, 'loginView'])
     ->name('login');
 
-    Route::post('login', [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
 
     // Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
     // ->name('password.request');
@@ -31,7 +31,8 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/verify-email', [EmailVerifyController::class,'index'])
         ->name('verification.notice');
-
+    Route::post('/verify-email', [EmailVerifyController::class, 'store'])->name('verification.store');
+    Route::post('/verify-email/resend', [EmailVerifyController::class, 'resend'])->name('verification.resend');
     // Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
     // ->name('password.confirm');
 
